@@ -1,4 +1,4 @@
-# CinemaHub BG
+# Cineming BG
 
 PWA in italiano per UCI Orio e Starplex Romano. HTML/CSS/JavaScript senza dipendenze; raccolta dati Python 3.12 con sola libreria standard. Nessuna chiave API.
 
@@ -37,3 +37,7 @@ Avvio locale: `python3 -m http.server 8000 --directory docs`, quindi http://loca
 Verificati recupero reale dei due cinema, deduplicazione, identificativo cinema, errore della fonte, programmazione vuota e offset italiano estate/inverno. Le date vengono conservate con offset Europe/Rome. L'ora ripetuta del cambio autunnale è interpretata come prima occorrenza se la fonte non fornisce un offset.
 
 Da verificare su dispositivi reali: layout e interazioni Safari, installazione iPhone/Mac e comportamento offline. Le disponibilità dei posti e i prezzi sono confermati solo dalla biglietteria.
+
+## Raggruppamento e grafica
+
+Le varianti XL, IMAX, 3D e lingua vengono raggruppate per titolo, con alias espliciti per i titoli abbreviati/tradotti noti. Le edizioni e gli anni restano distinti. Ordinamento film per numero di spettacoli risultanti dai filtri, poi alfabetico; vista oraria cronologica. Logo IMAX originale distribuito dal sito UCI: https://ucicinemas.com.br/Content/PublicSite/images/menuLogo1.png . Bandiera accompagnata dal codice lingua; i dati lingua e formato non vengono attribuiti a cinema diversi da quello della fonte. Test JavaScript: `node tests/films.cjs`.
