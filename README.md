@@ -16,7 +16,7 @@ Il workflow raccoglie e pubblica ogni tre ore, al minuto 17 UTC; gli orari piani
 
 ## Funzioni
 
-Vista film con confronto dei cinema e vista cronologica; giorno, ricerca e cinema; tema scuro/chiaro; preferenze locali di vista, cinema e tema; locandine, durata, genere e versioni quando fornite. Gli orari passati sono attenuati. I collegamenti aprono la biglietteria ufficiale del cinema: occorre selezionare lo spettacolo lì.
+Vista film con confronto dei cinema e vista cronologica; giorno, ricerca e cinema; tema scuro/chiaro; preferenze locali di vista, cinema e tema; locandine, durata, genere e versioni quando fornite. Gli orari passati sono attenuati. Per UCI Orio, il collegamento apre la pagina di acquisto del singolo spettacolo usando gli identificativi cinema, evento e proiezione. Per Starplex Romano apre Webtic, dove va scelto lo spettacolo. Webtic rimane disponibile anche come alternativa UCI. Gli orari da mezzanotte alle 02:59, in fuso Europe/Rome, appaiono nella serata precedente con il badge «+1 giorno».
 
 Service worker con copia offline delle risorse e dei dati già consultati. Le immagini remote non sono garantite offline. La pagina ricarica i JSON ogni cinque minuti. Dati più vecchi di sei ore vengono segnalati. Un errore di raccolta conserva la precedente programmazione del cinema interessato. Nessun risultato vuoto viene interpretato come un errore se il servizio risponde correttamente con lista vuota.
 

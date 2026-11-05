@@ -16,3 +16,21 @@ function canonicalTitle(title){const clean=filmName(title),key=titleKey(clean);f
 function filmKey(show){return titleKey(canonicalTitle(show.title))}
 function filmGroups(rows,mode){const groups=new Map();for(const s of rows){const key=mode==='films'?filmKey(s):s.cinema+':'+s.id;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(s)}const lists=[...groups.values()];return mode==='films'?lists.sort((a,b)=>b.length-a.length||canonicalTitle(a[0].title).localeCompare(canonicalTitle(b[0].title),'it')):lists.sort((a,b)=>a[0].start.localeCompare(b[0].start))}
 function variantLabels(show){const value=show.version+' '+show.title, labels=[];if(/imax/i.test(value))labels.push('IMAX');if(/\bxl\b/i.test(value))labels.push('XL');if(/\b3d\b/i.test(value))labels.push('3D');const flags={EN:'🇬🇧 ENG',ENG:'🇬🇧 ENG',JP:'🇯🇵 JPN',JA:'🇯🇵 JPN',CN:'🇨🇳 ZHO',CH:'🇨🇳 ZHO',ZH:'🇨🇳 ZHO',KOR:'🇰🇷 KOR',KO:'🇰🇷 KOR',FR:'🇫🇷 FRA',DE:'🇩🇪 DEU',ES:'🇪🇸 SPA',IT:'🇮🇹 ITA'};const parts=show.version.split(' · ');let language=parts.find(p=>flags[p]);if(!language){const m=show.title.match(/^\((JP|Ch|Kor|Eng?)\)/i);if(m)language=m[1].toUpperCase()}if(language)labels.push(flags[language]);else if(/O\.?V\.?/i.test(value))labels.push('Lingua originale');for(const p of parts)if(/^(SUB-|VM|\d+\+|LIVE)/.test(p))labels.push(p.replace('SUB-IT','Sott. IT').replace('SUB-EN','Sott. ENG'));return [...new Set(labels)]}
+
+const NIGHT_CUTOFF = '03:00';
+function shiftDate(date, days) {
+ const value = new Date(date+'T12:00:00Z');
+ value.setUTCDate(value.getUTCDate()+days);
+ return value.toISOString().slice(0,10);
+}
+function programmingDay(date, time) {
+ return time<NIGHT_CUTOFF ? shiftDate(date,-1) : date;
+}
+const romeClock = new Intl.DateTimeFormat('en-GB', {
+ timeZone:'Europe/Rome', year:'numeric', month:'2-digit', day:'2-digit',
+ hour:'2-digit', minute:'2-digit', hourCycle:'h23'
+});
+function currentProgrammingDay(now = new Date()) {
+ const parts = Object.fromEntries(romeClock.formatToParts(now).map(p=>[p.type,p.value]));
+ return programmingDay(`${parts.year}-${parts.month}-${parts.day}`,`${parts.hour}:${parts.minute}`);
+}
