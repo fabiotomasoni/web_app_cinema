@@ -16,7 +16,7 @@ Il workflow raccoglie e pubblica ogni tre ore, al minuto 17 UTC; gli orari piani
 
 ## Funzioni
 
-Vista film con confronto dei cinema e vista cronologica; giorno, ricerca e cinema; tema scuro/chiaro; preferenze locali di vista, cinema e tema; locandine, durata, genere e versioni quando fornite. Gli orari passati sono attenuati. Per UCI Orio, il collegamento apre la pagina di acquisto del singolo spettacolo usando gli identificativi cinema, evento e proiezione. Per Starplex Romano apre Webtic, dove va scelto lo spettacolo. Webtic rimane disponibile anche come alternativa UCI. Gli orari da mezzanotte alle 02:59, in fuso Europe/Rome, appaiono nella serata precedente con il badge «+1 giorno».
+Vista film con confronto dei cinema e vista cronologica; giorno, ricerca e cinema; tema scuro/chiaro; preferenze locali di vista, cinema e tema; locandine, durata, genere e versioni quando fornite. Gli orari passati sono attenuati. Per UCI Orio, il collegamento apre la pagina di acquisto del singolo spettacolo usando gli identificativi cinema, evento e proiezione. Per Starplex Romano apre Webtic, dove va scelto lo spettacolo. Webtic rimane disponibile anche come alternativa UCI. Gli orari da mezzanotte alle 02:59, in fuso Europe/Rome, appaiono nella serata precedente.
 
 Service worker con copia offline delle risorse e dei dati già consultati. Le immagini remote non sono garantite offline. La pagina ricarica i JSON ogni cinque minuti. Dati più vecchi di sei ore vengono segnalati. Un errore di raccolta conserva la precedente programmazione del cinema interessato. Nessun risultato vuoto viene interpretato come un errore se il servizio risponde correttamente con lista vuota.
 
@@ -40,4 +40,4 @@ Da verificare su dispositivi reali: layout e interazioni Safari, installazione i
 
 ## Raggruppamento e grafica
 
-Le varianti XL, IMAX, 3D e lingua vengono raggruppate per titolo, con alias espliciti per i titoli abbreviati/tradotti noti. Le edizioni e gli anni restano distinti. Ordinamento film per numero di spettacoli risultanti dai filtri, poi alfabetico; vista oraria cronologica. Logo IMAX originale distribuito dal sito UCI: https://ucicinemas.com.br/Content/PublicSite/images/menuLogo1.png . Bandiera accompagnata dal codice lingua; i dati lingua e formato non vengono attribuiti a cinema diversi da quello della fonte. Test JavaScript: `node tests/films.cjs`.
+Le varianti XL, IMAX, 3D e lingua vengono raggruppate per titolo, con alias espliciti per i titoli abbreviati/tradotti noti. Le edizioni e gli anni restano distinti. Ordinamento film per numero di spettacoli risultanti dai filtri, poi alfabetico; vista oraria cronologica. Il marchio IMAX usa il PNG trasparente fornito per il progetto. Bandiera accompagnata dal codice lingua; i dati lingua e formato non vengono attribuiti a cinema diversi da quello della fonte. Test JavaScript: `node tests/films.cjs`.
