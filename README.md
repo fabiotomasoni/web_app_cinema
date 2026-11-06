@@ -6,7 +6,7 @@ PWA in italiano per UCI Orio e Starplex Romano. HTML/CSS/JavaScript senza dipend
 
 Repository pubblica, GitHub Pages e Actions. In GitHub → Settings → Pages → Source scegliere **GitHub Actions**. Eseguire il workflow “Aggiorna programmazione” dalla scheda Actions. Il sito sarà https://fabiotomasoni.github.io/web_app_cinema/ . Non serve un dominio a pagamento.
 
-Il workflow raccoglie e pubblica ogni tre ore, al minuto 17 UTC; gli orari pianificati possono subire ritardi GitHub. Nessun Mac acceso. Le esecuzioni standard su repository pubbliche sono gratuite: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits . GitHub può sospendere workflow pianificati dopo 60 giorni senza attività: verificare Actions in caso di interruzione.
+Il workflow raccoglie e pubblica ogni ora, al minuto 23 UTC; gli orari pianificati possono subire ritardi GitHub. Nessun Mac acceso. Le esecuzioni standard su repository pubbliche sono gratuite: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits . GitHub può sospendere workflow pianificati dopo 60 giorni senza attività: verificare Actions in caso di interruzione.
 
 ## Installazione
 
@@ -18,7 +18,7 @@ Il workflow raccoglie e pubblica ogni tre ore, al minuto 17 UTC; gli orari piani
 
 Vista film con confronto dei cinema e vista cronologica; giorno, ricerca e cinema; tema scuro/chiaro; preferenze locali di vista, cinema e tema; locandine, durata, genere e versioni quando fornite. Gli orari passati sono attenuati. Per UCI Orio, il collegamento apre la pagina di acquisto del singolo spettacolo usando gli identificativi cinema, evento e proiezione. Per Starplex Romano apre Webtic, dove va scelto lo spettacolo. Webtic rimane disponibile anche come alternativa UCI. Gli orari da mezzanotte alle 02:59, in fuso Europe/Rome, appaiono nella serata precedente.
 
-Service worker con copia offline delle risorse e dei dati già consultati. Le immagini remote non sono garantite offline. La pagina ricarica i JSON ogni cinque minuti. Dati più vecchi di sei ore vengono segnalati. Un errore di raccolta conserva la precedente programmazione del cinema interessato. Nessun risultato vuoto viene interpretato come un errore se il servizio risponde correttamente con lista vuota.
+Service worker con copia offline delle risorse e dei dati già consultati. Le immagini remote non sono garantite offline. La pagina cerca dati aggiornati all’apertura, al ritorno in primo piano, al ripristino della connessione e ogni cinque minuti mentre è visibile. Dati più vecchi di sei ore vengono segnalati. Un errore di raccolta conserva la precedente programmazione del cinema interessato. Nessun risultato vuoto viene interpretato come un errore se il servizio risponde correttamente con lista vuota.
 
 ## Fonti verificate il 5 novembre 2026
 
@@ -26,7 +26,7 @@ Gli ID Webtic sono confermati: 5363 = UCI Cinemas Orio al Serio Bergamo; 5641 = 
 
 Endpoint effettivamente usato dal frontend pubblico https://www.webtic.it/app/ (bundle chunk-ZZQLJZJB.js al momento della verifica): POST https://restapi.webtic.it/Webtic/CallOldWebtic con OldWebticRequest.meta.QueryParams contenente wtid=getFullScheduling, localid e trackid=33. Test reale: 843 spettacoli UCI, 86 Starplex. Il servizio non richiede autenticazione nelle richieste testate. È un endpoint non documentato, senza garanzia di stabilità o continuità gratuita.
 
-robots.txt di restapi.webtic.it non conteneva esclusioni alla verifica; quello di webtic.it indicava la sitemap. Il raccoglitore verifica robots prima di accedere e si ferma in caso di divieto o errore di verifica. Due chiamate di programmazione ogni tre ore, senza aggirare restrizioni. Non sono state individuate condizioni pubbliche che garantiscano una licenza di redistribuzione o un limite quantitativo per questa API: accessibilità tecnica e robots non equivalgono a una licenza. Le informazioni di privacy/acquisto Webtic non documentano un'API pubblica. Locandine e informazioni restano dei rispettivi titolari.
+robots.txt di restapi.webtic.it non conteneva esclusioni alla verifica; quello di webtic.it indicava la sitemap. Il raccoglitore verifica robots prima di accedere e si ferma in caso di divieto o errore di verifica. Due chiamate di programmazione ogni ora, senza aggirare restrizioni. Non sono state individuate condizioni pubbliche che garantiscano una licenza di redistribuzione o un limite quantitativo per questa API: accessibilità tecnica e robots non equivalgono a una licenza. Le informazioni di privacy/acquisto Webtic non documentano un'API pubblica. Locandine e informazioni restano dei rispettivi titolari.
 
 Alternativa in caso di indisponibilità: ultimi dati validi con avviso e consultazione dei siti ufficiali; Starplex pubblica anche orari nelle pagine programmazione-sk?idfilm=… (verificato). Non è implementato uno scraper alternativo automatico: entrambi i cinema dipendono attualmente da Webtic.
 
