@@ -1,7 +1,7 @@
 name: Aggiorna programmazione
 on:
   schedule:
-    - cron: '23 * * * *'
+    - cron: '11,41 * * * *'
   workflow_dispatch:
   push:
     branches: [main]

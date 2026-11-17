@@ -6,7 +6,7 @@ PWA in italiano per UCI Orio e Starplex Romano. HTML/CSS/JavaScript senza dipend
 
 Repository pubblica, GitHub Pages e Actions. In GitHub → Settings → Pages → Source scegliere **GitHub Actions**. Eseguire il workflow “Aggiorna programmazione” dalla scheda Actions. Il sito sarà https://fabiotomasoni.github.io/web_app_cinema/ . Non serve un dominio a pagamento.
 
-Il workflow raccoglie e pubblica ogni ora, al minuto 23 UTC; gli orari pianificati possono subire ritardi GitHub. Nessun Mac acceso. Le esecuzioni standard su repository pubbliche sono gratuite: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits . GitHub può sospendere workflow pianificati dopo 60 giorni senza attività: verificare Actions in caso di interruzione.
+Il workflow raccoglie e pubblica due volte ogni ora, ai minuti 11 e 41 UTC; gli orari pianificati possono subire ritardi GitHub. Nessun Mac acceso. Le esecuzioni standard su repository pubbliche sono gratuite: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits . GitHub può sospendere workflow pianificati dopo 60 giorni senza attività: verificare Actions in caso di interruzione.
 
 ## Installazione
 
@@ -26,7 +26,7 @@ Gli ID Webtic sono confermati: 5363 = UCI Cinemas Orio al Serio Bergamo; 5641 = 
 
 Endpoint effettivamente usato dal frontend pubblico https://www.webtic.it/app/ (bundle chunk-ZZQLJZJB.js al momento della verifica): POST https://restapi.webtic.it/Webtic/CallOldWebtic con OldWebticRequest.meta.QueryParams contenente wtid=getFullScheduling, localid e trackid=33. Test reale: 843 spettacoli UCI, 86 Starplex. Il servizio non richiede autenticazione nelle richieste testate. È un endpoint non documentato, senza garanzia di stabilità o continuità gratuita.
 
-robots.txt di restapi.webtic.it non conteneva esclusioni alla verifica; quello di webtic.it indicava la sitemap. Il raccoglitore verifica robots prima di accedere e si ferma in caso di divieto o errore di verifica. Due chiamate di programmazione ogni ora, senza aggirare restrizioni. Non sono state individuate condizioni pubbliche che garantiscano una licenza di redistribuzione o un limite quantitativo per questa API: accessibilità tecnica e robots non equivalgono a una licenza. Le informazioni di privacy/acquisto Webtic non documentano un'API pubblica. Locandine e informazioni restano dei rispettivi titolari.
+robots.txt di restapi.webtic.it non conteneva esclusioni alla verifica; quello di webtic.it indicava la sitemap. Il raccoglitore verifica robots prima di accedere e si ferma in caso di divieto o errore di verifica. Due chiamate di programmazione per esecuzione, senza aggirare restrizioni. Non sono state individuate condizioni pubbliche che garantiscano una licenza di redistribuzione o un limite quantitativo per questa API: accessibilità tecnica e robots non equivalgono a una licenza. Le informazioni di privacy/acquisto Webtic non documentano un'API pubblica. Locandine e informazioni restano dei rispettivi titolari.
 
 Alternativa in caso di indisponibilità: ultimi dati validi con avviso e consultazione dei siti ufficiali; Starplex pubblica anche orari nelle pagine programmazione-sk?idfilm=… (verificato). Non è implementato uno scraper alternativo automatico: entrambi i cinema dipendono attualmente da Webtic.
 
@@ -41,3 +41,5 @@ Da verificare su dispositivi reali: layout e interazioni Safari, installazione i
 ## Raggruppamento e grafica
 
 Le varianti XL, IMAX, 3D e lingua vengono raggruppate per titolo, con alias espliciti per i titoli abbreviati/tradotti noti. Le edizioni e gli anni restano distinti. Ordinamento film per numero di spettacoli risultanti dai filtri, poi alfabetico; vista oraria cronologica. Il marchio IMAX usa il PNG trasparente fornito per il progetto. Bandiera accompagnata dal codice lingua; i dati lingua e formato non vengono attribuiti a cinema diversi da quello della fonte. Test JavaScript: `node tests/films.cjs`.
+
+La pianificazione GitHub Actions è best effort: può saltare esecuzioni anche per diverse ore. Non è un aggiornamento garantito ogni 30 minuti. Per una garanzia maggiore serve un servizio di pianificazione indipendente.
