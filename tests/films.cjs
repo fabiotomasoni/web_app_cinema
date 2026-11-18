@@ -29,4 +29,11 @@ assert.ok(plain.includes('Via Portico 71'));assert.ok(plain.includes('30 minuti'
 const romano=calendarEvent({...show,cinema:'5641'},'Starplex Romano').replace(/\\r\\n /g,'');
 assert.ok(romano.includes('DTEND:20261119T004600Z'));assert.ok(romano.includes('498 Soncinese'));assert.ok(!romano.includes('30 minuti'));
 assert.equal(show.duration,'01:45');
+assert.ok(plain.includes('GEO:45.661523;9.6966183'));
+assert.ok(plain.includes('LOCATION:45.661523'));
+assert.ok(plain.includes('X-APPLE-STRUCTURED-LOCATION;VALUE=URI;'));
+assert.ok(plain.includes(':geo:45.661523,9.6966183'));
+assert.ok(romano.includes('GEO:45.5325545;9.7585396'));
+assert.ok(romano.includes('maps.apple.com'));
+
 `,{assert,TextEncoder});console.log('15 verifiche del programma superate');

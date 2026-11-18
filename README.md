@@ -43,3 +43,5 @@ Da verificare su dispositivi reali: layout e interazioni Safari, installazione i
 Le varianti XL, IMAX, 3D e lingua vengono raggruppate per titolo, con alias espliciti per i titoli abbreviati/tradotti noti. Le edizioni e gli anni restano distinti. Ordinamento film per numero di spettacoli risultanti dai filtri, poi alfabetico; vista oraria cronologica. Il marchio IMAX usa il PNG trasparente fornito per il progetto. Bandiera accompagnata dal codice lingua; i dati lingua e formato non vengono attribuiti a cinema diversi da quello della fonte. Test JavaScript: `node tests/films.cjs`.
 
 La pianificazione GitHub Actions è best effort: può saltare esecuzioni anche per diverse ore. Non è un aggiornamento garantito ogni 30 minuti. Per una garanzia maggiore serve un servizio di pianificazione indipendente.
+
+Coordinate degli eventi calendario: OpenStreetMap, nodi 7162700897 (UCI) e 3242944010 (Starplex), © contributori OpenStreetMap, https://www.openstreetmap.org/copyright . Gli eventi includono GEO e posizione strutturata Apple, con collegamenti diretti alle mappe nelle note.

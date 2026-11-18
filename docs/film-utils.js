@@ -56,6 +56,7 @@ const cinemaAddresses={
  '5363':'UCI Cinemas Orio — Oriocenter, Via Portico 71, 24050 Orio al Serio (BG), Italia',
  '5641':'Starplex Romano di Lombardia, S.S. 498 Soncinese, 24058 Romano di Lombardia (BG), Italia'
 };
+const cinemaCoordinates={'5363':[45.661523,9.6966183],'5641':[45.5325545,9.7585396]};
 function calendarEvent(show,cinema,now=new Date()){
  const escape=text=>String(text).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,');
  const stamp=date=>date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z');
@@ -63,11 +64,19 @@ function calendarEvent(show,cinema,now=new Date()){
  const extra=show.cinema==='5363'?30:0;
  const minutes=match?Number(match[1])*60+Number(match[2])+extra:0;
  const location=cinemaAddresses[show.cinema]||cinema;
- const map='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(location);
+ const coordinates=cinemaCoordinates[show.cinema];
+ const point=coordinates?coordinates.join(','):location;
+ const map='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(point);
+ const appleMap='https://maps.apple.com/?ll='+encodeURIComponent(point)+'&q='+encodeURIComponent(cinema);
  const durationNote=extra?'Fine indicativa: durata del film + 30 minuti per pubblicità iniziale e intervallo.':'Durata indicativa del film; pubblicità e intervallo esclusi.';
  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cineming BG//Spettacoli//IT','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${show.cinema}-${show.id}@cineming-bg`,`DTSTAMP:${stamp(now)}`,`DTSTART:${stamp(start)}`];
  if(minutes>0)lines.push(`DTEND:${stamp(new Date(start.getTime()+minutes*60000))}`);
- lines.push(`SUMMARY:${escape(canonicalTitle(show.title))}`,`LOCATION:${escape(location)}`,`DESCRIPTION:${escape(shareMessage(show,cinema)+'\n'+(show.screen||'')+'\nMappa: '+map+'\n'+durationNote)}`,`URL:${show.booking}`,'END:VEVENT','END:VCALENDAR');
+ lines.push(`SUMMARY:${escape(canonicalTitle(show.title))}`,`LOCATION:${escape(point)}`,`DESCRIPTION:${escape(shareMessage(show,cinema)+'\n'+(show.screen||'')+'\nIndirizzo: '+location+'\nMappe Apple: '+appleMap+'\nGoogle Maps: '+map+'\n'+durationNote)}`,`URL:${show.booking}`,'END:VEVENT','END:VCALENDAR');
+ if(coordinates){
+  const title=cinema.replace(/[";\r\n]/g,'');
+  const address=location.replace(/[";\r\n]/g,'');
+  lines.splice(lines.indexOf('END:VEVENT'),0,`GEO:${coordinates[0]};${coordinates[1]}`,`X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS="${address}";X-APPLE-RADIUS=100;X-TITLE="${title}":geo:${point}`);
+ }
  const encoder=new TextEncoder();
  return lines.map(line=>{let folded='',bytes=0;for(const ch of line){const size=encoder.encode(ch).length;if(bytes+size>75){folded+='\r\n ';bytes=1}folded+=ch;bytes+=size}return folded}).join('\r\n')+'\r\n';
 }
