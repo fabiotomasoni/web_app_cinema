@@ -48,9 +48,9 @@ function filmSearchIndex(rows){
 function filmMatches(show,query,index){return !titleKey(query)||(index.get(filmKey(show))||'').includes(titleKey(query))}
 
 function matchesFormat(show,format){const labels=variantLabels(show);return format==='all'||(format==='standard'?!labels.some(x=>['IMAX','XL','3D'].includes(x)):labels.includes(format))}
-function shareMessage(show,cinema){
+function shareMessage(show,cinema,includeBooking=true){
  const date=new Intl.DateTimeFormat('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Rome'}).format(new Date(show.start));
- return `${canonicalTitle(show.title)}\n${cinema} · ${date}, ore ${show.time}\n${show.version||''}\nPrenotazione: ${show.booking}`;
+ return `${canonicalTitle(show.title)}\n${cinema} · ${date}, ore ${show.time}\n${show.version||''}${includeBooking?'\nPrenotazione: '+show.booking:''}`;
 }
 const cinemaAddresses={
  '5363':'UCI Cinemas Orio — Oriocenter, Via Portico 71, 24050 Orio al Serio (BG), Italia',
@@ -71,7 +71,7 @@ function calendarEvent(show,cinema,now=new Date()){
  const durationNote=extra?'Fine indicativa: durata del film + 30 minuti per pubblicità iniziale e intervallo.':'Durata indicativa del film; pubblicità e intervallo esclusi.';
  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cineming BG//Spettacoli//IT','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${show.cinema}-${show.id}@cineming-bg`,`DTSTAMP:${stamp(now)}`,`DTSTART:${stamp(start)}`];
  if(minutes>0)lines.push(`DTEND:${stamp(new Date(start.getTime()+minutes*60000))}`);
- lines.push(`SUMMARY:${escape(canonicalTitle(show.title))}`,`LOCATION:${escape(point)}`,`DESCRIPTION:${escape(shareMessage(show,cinema)+'\n'+(show.screen||'')+'\nIndirizzo: '+location+'\nMappe Apple: '+appleMap+'\nGoogle Maps: '+map+'\n'+durationNote)}`,`URL:${show.booking}`,'END:VEVENT','END:VCALENDAR');
+ lines.push(`SUMMARY:${escape(canonicalTitle(show.title))}`,`LOCATION:${escape(point)}`,`DESCRIPTION:${escape(shareMessage(show,cinema,false)+'\n'+(show.screen||'')+'\nIndirizzo: '+location+'\nMappe Apple: '+appleMap+'\nGoogle Maps: '+map+'\n'+durationNote)}`,'END:VEVENT','END:VCALENDAR');
  if(coordinates){
   const title=cinema.replace(/[";\r\n]/g,'');
   const address=location.replace(/[";\r\n]/g,'');
