@@ -1,9 +1,9 @@
-const CACHE='cineming-v9';
+const CACHE='cineming-v10';
 const DATA_CACHE='cineming-schedule';
 const BASE=new URL('.',self.location).pathname;
 const SCHEDULE=new URL('data/schedule.json',self.location);
 self.addEventListener('install',e=>{
- e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','index.html','style.css?v=9','film-utils.js?v=6','app.js?v=9','manifest.webmanifest','icon.png','imax.png'].map(x=>BASE+x))).then(()=>self.skipWaiting()));
+ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','index.html','style.css?v=10','film-utils.js?v=6','app.js?v=10','manifest.webmanifest','icon.png','imax.png'].map(x=>BASE+x))).then(()=>self.skipWaiting()));
 });
 self.addEventListener('activate',e=>{
  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('cineming-v')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
