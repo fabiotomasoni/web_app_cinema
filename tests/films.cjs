@@ -14,4 +14,9 @@ assert.equal(currentProgrammingDay(new Date('2026-11-05T23:01:00Z')),'2026-11-05
 assert.equal(currentProgrammingDay(new Date('2026-11-06T02:00:00Z')),'2026-11-06');
 const evening=[{title:'Film',cinema:'5363',id:'1',start:'2026-11-06T00:01:00+01:00'},{title:'Film',cinema:'5363',id:'2',start:'2026-11-05T22:30:00+01:00'}];
 assert.equal(filmGroups(evening,'times')[1][0].id,'1');
+const translated=[{title:'Il titolo italiano',originalTitle:'Original English',year:'2026'},{title:'(O.V.) Original English',originalTitle:'Original English',year:'2026'}];
+const search=filmSearchIndex(translated);
+assert.equal(filmKey(translated[0]),filmKey(translated[1]));
+for(const q of ['titolo italiano','Original English'])for(const show of translated)assert.ok(filmMatches(show,q,search));
+assert.notEqual(filmKey({...translated[0],year:'1990'}),filmKey(translated[1]));
 `,{assert});console.log('15 verifiche del programma superate');

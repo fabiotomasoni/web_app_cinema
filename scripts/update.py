@@ -33,7 +33,7 @@ def normalize(raw, cinema):
                 start = datetime.fromisoformat(show['StartTime'])
                 start = start.replace(tzinfo=ROME) if start.tzinfo is None else start.astimezone(ROME)
                 key = str(show['PerformanceId'])
-                rows[key] = dict(id=key, cinema=cinema, title=film['Title'], titleId=str(film.get('TitleId') or film['Title']).casefold(), start=start.isoformat(), date=start.date().isoformat(), time=start.strftime('%H:%M'), screen=show.get('Screen',''), duration=film.get('Duration',''), genre=film.get('Category',''), version=' · '.join(film.get('Properties', [])), poster='https://secure.webtic.it/' + film.get('Picture',''), booking=booking_url(cinema, film, show))
+                rows[key] = dict(id=key, cinema=cinema, title=film['Title'], originalTitle=film.get('OriginalTitle',''), year=str(film.get('Year','')), titleId=str(film.get('TitleId') or film['Title']).casefold(), start=start.isoformat(), date=start.date().isoformat(), time=start.strftime('%H:%M'), screen=show.get('Screen',''), duration=film.get('Duration',''), genre=film.get('Category',''), version=' · '.join(film.get('Properties', [])), poster='https://secure.webtic.it/' + film.get('Picture',''), booking=booking_url(cinema, film, show))
     return sorted(rows.values(), key=lambda x:x['start'])
 def main():
     old = json.loads(OUT.read_text()) if OUT.exists() else {'cinemas':{}}
